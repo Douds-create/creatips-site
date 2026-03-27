@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CréaTips — Catalogue des Créateurs & Projets</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir:#0D0D0D; --noir2:#1A1A1A; --noir3:#2A2A2A; --noir4:#3A3A3A;
+  --gold:#C9A84C; --gold2:#F5E8C0; --goldd:#9B7A2E;
+  --cine:#C0392B; --musique:#7C3AED; --arts:#0891B2;
+  --litterature:#059669; --mode:#DB2777; --danse:#D97706;
+  --white:#FFFFFF; --gray:#9CA3AF; --gray2:#6B7280;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--noir);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2rem;
+  background:rgba(13,13,13,0.95);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,168,76,0.12);
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--white);}
+.nav-logo span{color:var(--gold);}
+.nav-tabs{display:flex;gap:0;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden;}
+.nav-tab{
+  padding:0.5rem 1.2rem;font-size:0.88rem;font-weight:600;cursor:pointer;
+  background:transparent;color:var(--gray);border:none;transition:all 0.15s;
+}
+.nav-tab.active{background:var(--gold);color:var(--noir);}
+.nav-tab:hover:not(.active){background:rgba(255,255,255,0.05);color:var(--white);}
+.nav-right{display:flex;align-items:center;gap:1rem;}
+.search-bar{
+  display:flex;align-items:center;gap:0.5rem;
+  background:var(--noir2);border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;padding:0.5rem 1rem;
+}
+.search-bar input{
+  background:none;border:none;outline:none;color:var(--white);
+  font-size:0.88rem;width:180px;font-family:'DM Sans',sans-serif;
+}
+.search-bar input::placeholder{color:var(--gray2);}
+.search-icon{color:var(--gray2);font-size:0.9rem;}
+
+/* HEADER */
+.catalogue-header{
+  padding:3rem 2rem 2rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:linear-gradient(180deg,rgba(201,168,76,0.04),transparent);
+}
+.catalogue-title{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;margin-bottom:0.5rem;}
+.catalogue-sub{font-size:1rem;color:var(--gray);max-width:500px;line-height:1.6;}
+
+/* FILTERS */
+.filters{
+  display:flex;align-items:center;gap:1rem;padding:1.2rem 2rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  overflow-x:auto;flex-wrap:nowrap;
+  background:var(--noir2);
+}
+.filter-label{font-size:0.78rem;color:var(--gray2);font-weight:600;white-space:nowrap;}
+.filter-chips{display:flex;gap:0.5rem;flex-wrap:nowrap;}
+.chip{
+  padding:0.4rem 0.9rem;border-radius:999px;font-size:0.8rem;font-weight:600;
+  border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--gray);
+  cursor:pointer;transition:all 0.15s;white-space:nowrap;
+}
+.chip.active{border-color:var(--gold);background:rgba(201,168,76,0.12);color:var(--gold);}
+.chip:hover:not(.active){border-color:rgba(255,255,255,0.25);color:var(--white);}
+.chip[data-color="cine"].active{border-color:var(--cine);background:rgba(192,57,43,0.12);color:var(--cine);}
+.chip[data-color="musique"].active{border-color:var(--musique);background:rgba(124,58,237,0.12);color:var(--musique);}
+.chip[data-color="arts"].active{border-color:var(--arts);background:rgba(8,145,178,0.12);color:var(--arts);}
+.sort-select{
+  margin-left:auto;padding:0.4rem 0.8rem;background:var(--noir3);
+  border:1px solid rgba(255,255,255,0.1);border-radius:8px;
+  color:var(--white);font-size:0.82rem;font-family:'DM Sans',sans-serif;
+  outline:none;cursor:pointer;
+}
+
+/* STATS BAR */
+.stats-bar{
+  display:flex;gap:0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.stat-item{
+  flex:1;padding:1rem 2rem;
+  border-right:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;gap:0.8rem;
+}
+.stat-item:last-child{border-right:none;}
+.stat-val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold);}
+.stat-lbl{font-size:0.78rem;color:var(--gray2);}
+
+/* MAIN GRID */
+.catalogue-body{display:flex;gap:0;min-height:calc(100vh - 240px);}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;flex-shrink:0;
+  border-right:1px solid rgba(255,255,255,0.06);
+  padding:1.5rem 1.2rem;
+  background:var(--noir2);
+}
+.sidebar-section{margin-bottom:2rem;}
+.sidebar-title{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;color:var(--gray2);text-transform:uppercase;margin-bottom:0.8rem;}
+.sidebar-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.5rem 0.6rem;border-radius:8px;cursor:pointer;transition:background 0.15s;
+}
+.sidebar-item:hover{background:rgba(255,255,255,0.04);}
+.sidebar-item.active{background:rgba(201,168,76,0.08);}
+.sidebar-item-left{display:flex;align-items:center;gap:0.6rem;font-size:0.88rem;}
+.sidebar-item-count{font-size:0.78rem;color:var(--gray2);background:var(--noir3);padding:2px 7px;border-radius:999px;}
+.sidebar-univers-dot{width:9px;height:9px;border-radius:50%;}
+.sidebar-divider{height:1px;background:rgba(255,255,255,0.06);margin:1rem 0;}
+
+/* CONTENT */
+.content{flex:1;padding:1.5rem 2rem;overflow-y:auto;}
+
+/* CREATOR LIST VIEW */
+.creator-list-item{
+  display:flex;align-items:center;gap:1.2rem;
+  padding:1rem 1.2rem;border-radius:12px;
+  background:var(--noir2);border:1px solid rgba(255,255,255,0.06);
+  margin-bottom:0.75rem;cursor:pointer;
+  transition:all 0.2s;
+}
+.creator-list-item:hover{border-color:rgba(201,168,76,0.25);transform:translateX(3px);}
+.cl-rank{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:rgba(201,168,76,0.35);width:28px;text-align:center;}
+.cl-avatar{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--noir3);display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;border:2px solid rgba(201,168,76,0.3);
+}
+.cl-info{flex:1;}
+.cl-header{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.2rem;}
+.cl-name{font-size:1rem;font-weight:700;color:var(--white);}
+.cl-verified{color:var(--gold);font-size:0.75rem;}
+.cl-badge{font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:999px;}
+.cl-role{font-size:0.82rem;color:var(--gray);margin-bottom:0.4rem;}
+.cl-stats{display:flex;gap:1.5rem;}
+.cl-stat{font-size:0.78rem;color:var(--gray2);}
+.cl-stat strong{color:var(--white);}
+.cl-universe-tag{
+  font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:999px;
+  letter-spacing:0.04em;display:flex;align-items:center;gap:3px;
+}
+.cl-actions{display:flex;gap:0.6rem;flex-shrink:0;}
+.cl-tip-btn{
+  background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);
+  color:var(--gold);padding:0.45rem 0.9rem;border-radius:7px;
+  font-weight:700;font-size:0.82rem;cursor:pointer;transition:all 0.15s;white-space:nowrap;
+}
+.cl-tip-btn:hover{background:rgba(201,168,76,0.22);border-color:var(--gold);}
+.cl-follow-btn{
+  background:var(--noir3);border:1px solid rgba(255,255,255,0.1);
+  color:var(--gray);padding:0.45rem 0.9rem;border-radius:7px;
+  font-weight:600;font-size:0.82rem;cursor:pointer;transition:all 0.15s;
+}
+.cl-follow-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.3);}
+
+/* PROJECT LIST VIEW */
+.project-list-item{
+  display:flex;gap:1.2rem;
+  padding:1.2rem;border-radius:12px;
+  background:var(--noir2);border:1px solid rgba(255,255,255,0.06);
+  margin-bottom:0.75rem;cursor:pointer;
+  transition:all 0.2s;
+}
+.project-list-item:hover{border-color:rgba(201,168,76,0.25);transform:translateX(3px);}
+.pl-thumb{
+  width:120px;height:80px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,#1C0A00,#1A1A1A);
+  display:flex;align-items:center;justify-content:center;font-size:2rem;
+  position:relative;overflow:hidden;
+}
+.pl-type{
+  position:absolute;bottom:5px;left:5px;
+  font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:999px;
+  background:var(--cine);color:var(--white);
+}
+.pl-info{flex:1;}
+.pl-title{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:0.2rem;}
+.pl-creator{font-size:0.82rem;color:var(--gold);margin-bottom:0.6rem;}
+.pl-progress{height:4px;background:var(--noir3);border-radius:999px;overflow:hidden;margin-bottom:0.4rem;}
+.pl-progress-fill{height:100%;background:var(--gold);border-radius:999px;}
+.pl-stats{display:flex;gap:1.5rem;align-items:center;}
+.pl-stat{font-size:0.8rem;color:var(--gray2);}
+.pl-stat strong{color:var(--white);font-size:0.9rem;}
+.pl-pct{font-size:0.82rem;font-weight:700;color:var(--gold);margin-left:auto;}
+.pl-urgent{font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(192,57,43,0.2);color:var(--cine);border:1px solid rgba(192,57,43,0.3);}
+.pl-actions{display:flex;flex-direction:column;gap:0.5rem;justify-content:center;flex-shrink:0;}
+.pl-back-btn{
+  background:var(--gold);color:var(--noir);
+  padding:0.55rem 1.1rem;border-radius:7px;
+  font-weight:700;font-size:0.82rem;cursor:pointer;border:none;transition:all 0.15s;white-space:nowrap;
+}
+.pl-back-btn:hover{background:var(--gold2);}
+.pl-save-btn{
+  background:var(--noir3);border:1px solid rgba(255,255,255,0.1);
+  color:var(--gray);padding:0.45rem;border-radius:7px;cursor:pointer;
+  font-size:0.9rem;text-align:center;transition:all 0.15s;
+}
+.pl-save-btn:hover{color:var(--gold);border-color:rgba(201,168,76,0.3);}
+
+/* SECTION HEADER */
+.section-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.2rem;padding-bottom:0.8rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.section-hdr-title{font-size:1.05rem;font-weight:700;color:var(--white);}
+.section-hdr-count{font-size:0.82rem;color:var(--gray2);}
+.section-hdr-view{display:flex;gap:0.3rem;}
+.view-btn{background:none;border:1px solid rgba(255,255,255,0.1);color:var(--gray);padding:0.3rem 0.6rem;border-radius:6px;cursor:pointer;font-size:0.8rem;}
+.view-btn.active{background:var(--noir3);color:var(--white);}
+
+/* TIP MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:var(--noir2);border:1px solid rgba(201,168,76,0.2);
+  border-radius:20px;padding:2rem;width:420px;max-width:95vw;
+}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;}
+.modal-creator-info{display:flex;align-items:center;gap:0.8rem;}
+.modal-creator-avatar{width:52px;height:52px;border-radius:50%;background:var(--noir3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:2px solid var(--gold);}
+.modal-close-btn{background:none;border:none;color:var(--gray);font-size:1.4rem;cursor:pointer;}
+.modal-amounts{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;}
+.m-amount-btn{padding:0.55rem 1rem;border-radius:8px;border:1.5px solid rgba(255,255,255,0.1);background:var(--noir3);color:var(--gray);font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.15s;}
+.m-amount-btn.sel,.m-amount-btn:hover{border-color:var(--gold);background:rgba(201,168,76,0.12);color:var(--gold);}
+.m-input{width:100%;background:var(--noir3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.7rem 1rem;color:var(--white);font-size:0.95rem;outline:none;margin-bottom:0.7rem;font-family:'DM Sans',sans-serif;}
+.m-input:focus{border-color:var(--gold);}
+.m-submit{width:100%;background:var(--gold);color:var(--noir);border:none;border-radius:10px;padding:0.85rem;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.2s;}
+.m-submit:hover{background:var(--gold2);}
+.m-fee{font-size:0.75rem;color:var(--gray2);text-align:center;margin-top:0.5rem;}
+
+/* EMPTY STATE */
+.empty-state{padding:4rem;text-align:center;}
+.empty-icon{font-size:3rem;margin-bottom:1rem;}
+.empty-title{font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;}
+.empty-sub{font-size:0.9rem;color:var(--gray);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{display:none;}
+  nav{padding:0.8rem 1rem;}
+  .catalogue-body{flex-direction:column;}
+  .stats-bar{flex-wrap:wrap;}
+  .stat-item{min-width:50%;}
+  .creator-list-item{flex-wrap:wrap;}
+  .cl-actions{flex-direction:row;}
+  .project-list-item{flex-direction:column;}
+  .pl-thumb{width:100%;height:120px;}
+  .pl-actions{flex-direction:row;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+
+</nav>
+  <div class="nav-logo">
+  <a href="index.html" style="color:inherit; text-decoration:none;">Cré<span>a</span>Tips</a>
+</div>
+  <div class="nav-tabs">
+
+    <button class="nav-tab active" id="tabCreateurs" onclick="switchTab('createurs')">🎭 Créateurs</button>
+    <button class="nav-tab" id="tabProjets" onclick="switchTab('projets')">🎬 Projets</button>
+  </div>
+  <div class="nav-right">
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Chercher..." id="searchInput" oninput="filterItems()">
+    </div>
+  </div>
+</nav>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div><div class="stat-val">5</div><div class="stat-lbl">Créateurs vérifiés</div></div>
+  </div>
+  <div class="stat-item">
+    <div><div class="stat-val">12,9M</div><div class="stat-lbl">FCFA distribués</div></div>
+  </div>
+  <div class="stat-item">
+    <div><div class="stat-val">4</div><div class="stat-lbl">Projets actifs</div></div>
+  </div>
+  <div class="stat-item">
+    <div><div class="stat-val">891</div><div class="stat-lbl">Backers & Fans</div></div>
+  </div>
+  <div class="stat-item">
+    <div><div class="stat-val">8%</div><div class="stat-lbl">Commission seulement</div></div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters" id="filterBar">
+  <div class="filter-label">Univers :</div>
+  <div class="filter-chips">
+    <button class="chip active" onclick="setFilter('all',this)">Tous</button>
+    <button class="chip" data-color="cine" onclick="setFilter('cine',this)">🎬 Ciné</button>
+    <button class="chip" data-color="musique" onclick="setFilter('musique',this)">🎵 Musique</button>
+    <button class="chip" data-color="arts" onclick="setFilter('arts',this)">🎨 Arts</button>
+  </div>
+  <div class="filter-label" style="margin-left:1.5rem;">Rôle :</div>
+  <div class="filter-chips">
+    <button class="chip active" onclick="setRoleFilter('all',this)">Tous</button>
+    <button class="chip" onclick="setRoleFilter('Acteur',this)">Acteur</button>
+    <button class="chip" onclick="setRoleFilter('Réalisatrice',this)">Réalisateur·ice</button>
+    <button class="chip" onclick="setRoleFilter('Scénariste',this)">Scénariste</button>
+    <button class="chip" onclick="setRoleFilter('Directeur Photo',this)">Directeur Photo</button>
+    <button class="chip" onclick="setRoleFilter('Productrice',this)">Producteur·ice</button>
+  </div>
+  <select class="sort-select" id="sortSelect" onchange="sortItems()">
+    <option value="tips">Trier : Plus de tips</option>
+    <option value="fans">Trier : Plus de fans</option>
+    <option value="name">Trier : Nom A→Z</option>
+  </select>
+</div>
+
+<!-- BODY -->
+<div class="catalogue-body">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Univers</div>
+      <div class="sidebar-item active">
+        <div class="sidebar-item-left">
+          <div class="sidebar-univers-dot" style="background:#C0392B;"></div>
+          Ciné & Audiovisuel
+        </div>
+        <span class="sidebar-item-count">5</span>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-left">
+          <div class="sidebar-univers-dot" style="background:#7C3AED;"></div>
+          Musique
+        </div>
+        <span class="sidebar-item-count">Bientôt</span>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-left">
+          <div class="sidebar-univers-dot" style="background:#0891B2;"></div>
+          Arts Visuels
+        </div>
+        <span class="sidebar-item-count">Bientôt</span>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-left">
+          <div class="sidebar-univers-dot" style="background:#059669;"></div>
+          Littérature
+        </div>
+        <span class="sidebar-item-count">Bientôt</span>
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Badges</div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-left">⭐ CréaStar</div>
+        <span class="sidebar-item-count">2</span>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-left">✨ CréaTalent</div>
+        <span class="sidebar-item-count">2</span>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-left">🚀 CréaRising</div>
+        <span class="sidebar-item-count">1</span>
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Pays</div>
+      <div class="sidebar-item"><div class="sidebar-item-left">🇨🇮 Côte d'Ivoire</div><span class="sidebar-item-count">1</span></div>
+      <div class="sidebar-item"><div class="sidebar-item-left">🇸🇳 Sénégal</div><span class="sidebar-item-count">2</span></div>
+      <div class="sidebar-item"><div class="sidebar-item-left">🇬🇭 Ghana</div><span class="sidebar-item-count">1</span></div>
+      <div class="sidebar-item"><div class="sidebar-item-left">🇲🇱 Mali</div><span class="sidebar-item-count">1</span></div>
+    </div>
+  </div>
+ 
+  <!-- CONTENT -->
+  <div class="content" id="mainContent">
+
+    <!-- CREATORS PANEL -->
+    <div id="creatorsPanel">
+      <div class="section-hdr">
+        <div>
+          <div class="section-hdr-title">Créateurs Phase 1 — Ciné & Audiovisuel</div>
+          <div class="section-hdr-count" id="creatorsCount">5 créateurs vérifiés</div>
+        </div>
+      </div>
+      <div id="creatorsList"></div>
+    </div>
+
+    <!-- PROJECTS PANEL -->
+    <div id="projectsPanel" style="display:none;">
+      <div class="section-hdr">
+        <div>
+          <div class="section-hdr-title">Projets en financement — Phase 1</div>
+          <div class="section-hdr-count" id="projectsCount">4 projets actifs</div>
+        </div>
+      </div>
+      <div id="projectsList"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TIP MODAL -->
+<div class="modal-overlay" id="tipModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-creator-info">
+        <div class="modal-creator-avatar" id="mAvatar">🎭</div>
+        <div>
+          <div style="font-size:1.05rem;font-weight:700;" id="mName">Créateur</div>
+          <div style="font-size:0.82rem;color:var(--gold);" id="mRole">Rôle</div>
+        </div>
+      </div>
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div style="font-size:0.82rem;color:var(--gray);margin-bottom:0.7rem;font-weight:600;">Montant du tip (FCFA)</div>
+    <div class="modal-amounts" id="modalAmounts"></div>
+    <input class="m-input" type="number" placeholder="Montant libre..." id="mCustom">
+    <input class="m-input" type="text" placeholder="Message (optionnel)" id="mMessage">
+    <button class="m-submit" onclick="submitTip()">Envoyer <span id="mBtnAmt">1 000</span> FCFA 💛</button>
+    <div class="m-fee">CréaTips retient 8% · Le reste va directement au créateur</div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────
+const CREATORS = [
+  { id:'c1', universe:'cine', name:'Adama Coulibaly', role:'Acteur', specialty:'Cinéma · Théâtre', country:'Côte d\'Ivoire', flag:'🇨🇮', emoji:'🎭', badge:'CréaStar', badgeColor:'#C9A84C', verified:true, totalTips:4850000, tipsCount:892, supportersCount:634, bio:'Acteur primé au CLAP IVOIRE 2023. Connu pour ses rôles dans «Abidjan City» et «Les Héritiers». Ambassadeur du cinéma ivoirien.', universeColor:'#C0392B' },
+  { id:'c2', universe:'cine', name:'Mariama Diallo', role:'Réalisatrice', specialty:'Long métrage · Documentaire', country:'Sénégal', flag:'🇸🇳', emoji:'🎬', badge:'CréaStar', badgeColor:'#C9A84C', verified:true, totalTips:3200000, tipsCount:567, supportersCount:421, bio:'Réalisatrice sénégalaise lauréate du FESPACO 2023. «Dakar Nuit» sélectionné dans 12 festivals internationaux.', universeColor:'#C0392B' },
+  { id:'c3', universe:'cine', name:'Kofi Mensah', role:'Directeur Photo', specialty:'Direction photo · Colorimétrie', country:'Ghana', flag:'🇬🇭', emoji:'📷', badge:'CréaTalent', badgeColor:'#9CA3AF', verified:true, totalTips:1850000, tipsCount:312, supportersCount:245, bio:'Directeur de la photographie avec 15 ans d\'expérience. Productions Netflix Afrique.', universeColor:'#C0392B' },
+  { id:'c4', universe:'cine', name:'Awa Traoré', role:'Scénariste', specialty:'Écriture · Série TV', country:'Mali', flag:'🇲🇱', emoji:'✍️', badge:'CréaTalent', badgeColor:'#9CA3AF', verified:true, totalTips:2100000, tipsCount:445, supportersCount:338, bio:'Scénariste primée, auteure de «Bamako Heights» sur Canal+ Afrique.', universeColor:'#C0392B' },
+  { id:'c5', universe:'cine', name:'Rokhaya Seck', role:'Productrice', specialty:'Production · Distribution', country:'Sénégal', flag:'🇸🇳', emoji:'🎥', badge:'CréaRising', badgeColor:'#C0392B', verified:true, totalTips:980000, tipsCount:198, supportersCount:156, bio:'Productrice indépendante, fondatrice de Teranga Films. 8 films en sélection internationale.', universeColor:'#C0392B' },
+];
+
+const PROJECTS = [
+  { id:'p1', universe:'cine', title:'Abidjan Nuit — Suite', creator:'Adama Coulibaly', type:'Long métrage', emoji:'🎬', goal:25000000, raised:18500000, backers:234, daysLeft:18, urgent:true, desc:'Suite du film primé «Abidjan City». Une histoire de rédemption et d\'identité dans la capitale économique de l\'Afrique de l\'Ouest.' },
+  { id:'p2', universe:'cine', title:'Dakar Underground', creator:'Mariama Diallo', type:'Documentaire', emoji:'🎞️', goal:15000000, raised:9200000, backers:156, daysLeft:32, urgent:false, desc:'Documentaire sur la scène culturelle underground de Dakar. 3 années de travail, 50+ interviews.' },
+  { id:'p3', universe:'cine', title:'Bamako Heights — Saison 3', creator:'Awa Traoré', type:'Série TV', emoji:'📺', goal:40000000, raised:31000000, backers:412, daysLeft:8, urgent:true, desc:'La 3e saison de la série Canal+ Afrique. Production indépendante pour garder la liberté créative.' },
+  { id:'p4', universe:'cine', title:'Teranga — Le Film', creator:'Rokhaya Seck', type:'Long métrage', emoji:'🌊', goal:18000000, raised:4500000, backers:89, daysLeft:45, urgent:false, desc:'Premier long métrage sénégalais entièrement financé par la communauté africaine.' },
+];
+
+// ── STATE ─────────────────────────────────────────────────
+let currentTab    = 'createurs';
+let activeFilter  = 'all';
+let activeRole    = 'all';
+let selectedTipAmount = 1000;
+let currentTarget = null;
+const TIP_AMOUNTS = [500,1000,2500,5000,10000,25000];
+const following   = new Set(['c1','c2']);
+
+// ── RENDER CREATORS ───────────────────────────────────────
+function renderCreators() {
+  const q    = document.getElementById('searchInput').value.toLowerCase();
+  const sort = document.getElementById('sortSelect').value;
+  let list   = CREATORS.filter(c => {
+    const matchUniverse = activeFilter === 'all' || c.universe === activeFilter;
+    const matchRole     = activeRole === 'all' || c.role === activeRole;
+    const matchSearch   = !q || c.name.toLowerCase().includes(q) || c.role.toLowerCase().includes(q) || c.country.toLowerCase().includes(q);
+    return matchUniverse && matchRole && matchSearch;
+  });
+  if (sort === 'tips')  list.sort((a,b) => b.totalTips - a.totalTips);
+  if (sort === 'fans')  list.sort((a,b) => b.supportersCount - a.supportersCount);
+  if (sort === 'name')  list.sort((a,b) => a.name.localeCompare(b.name));
+
+  const container = document.getElementById('creatorsList');
+  document.getElementById('creatorsCount').textContent = list.length + ' créateur' + (list.length>1?'s':'') + ' trouvé' + (list.length>1?'s':'');
+
+  if (list.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">Aucun résultat</div><div class="empty-sub">Essayez un autre filtre ou terme de recherche</div></div>`;
+    return;
+  }
+
+  container.innerHTML = list.map((c, i) => `
+    <div class="creator-list-item" onclick="openTipModal('${c.id}')">
+      <div class="cl-rank">#${i+1}</div>
+      <div class="cl-avatar">${c.emoji}</div>
+      <div class="cl-info">
+        <div class="cl-header">
+          <span class="cl-name">${c.name}</span>
+          ${c.verified ? '<span class="cl-verified">✓ Vérifié</span>' : ''}
+          <span class="cl-badge" style="background:${c.badgeColor}22;color:${c.badgeColor};border:1px solid ${c.badgeColor}44;">${c.badge==='CréaStar'?'⭐':c.badge==='CréaTalent'?'✨':'🚀'} ${c.badge}</span>
+          <span class="cl-universe-tag" style="background:${c.universeColor}22;color:${c.universeColor};border:1px solid ${c.universeColor}44;">${c.flag} Ciné</span>
+        </div>
+        <div class="cl-role">${c.role} · ${c.country} · ${c.specialty}</div>
+        <div class="cl-stats">
+          <div class="cl-stat"><strong>${(c.totalTips/1000).toFixed(0)}K</strong> FCFA reçus</div>
+          <div class="cl-stat"><strong>${c.tipsCount}</strong> tips</div>
+          <div class="cl-stat"><strong>${c.supportersCount}</strong> fans</div>
+        </div>
+      </div>
+      <div class="cl-actions">
+        <button class="cl-tip-btn" onclick="event.stopPropagation();openTipModal('${c.id}')">💛 Tip</button>
+        <button class="cl-follow-btn" id="follow-${c.id}" onclick="event.stopPropagation();toggleFollow('${c.id}')">${following.has(c.id)?'✓ Suivi':'+Suivre'}</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── RENDER PROJECTS ───────────────────────────────────────
+function renderProjects() {
+  const q    = document.getElementById('searchInput').value.toLowerCase();
+  let list   = PROJECTS.filter(p => {
+    const matchUniverse = activeFilter === 'all' || p.universe === activeFilter;
+    const matchSearch   = !q || p.title.toLowerCase().includes(q) || p.creator.toLowerCase().includes(q) || p.type.toLowerCase().includes(q);
+    return matchUniverse && matchSearch;
+  });
+
+  const container = document.getElementById('projectsList');
+  document.getElementById('projectsCount').textContent = list.length + ' projet' + (list.length>1?'s':'') + ' actif' + (list.length>1?'s':'');
+
+  if (list.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">🎬</div><div class="empty-title">Aucun projet</div><div class="empty-sub">Aucun projet disponible avec ce filtre</div></div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(p => {
+    const pct = Math.min(Math.round((p.raised/p.goal)*100),100);
+    return `
+    <div class="project-list-item">
+      <div class="pl-thumb">
+        ${p.emoji}
+        <div class="pl-type">${p.type}</div>
+      </div>
+      <div class="pl-info">
+        <div class="pl-title">${p.title}</div>
+        <div class="pl-creator">par ${p.creator}</div>
+        <div class="pl-progress"><div class="pl-progress-fill" style="width:${pct}%"></div></div>
+        <div class="pl-stats">
+          <div class="pl-stat"><strong>${(p.raised/1000000).toFixed(1)}M FCFA</strong> levés</div>
+          <div class="pl-stat"><strong>${p.backers}</strong> backers</div>
+          ${p.urgent ? `<span class="pl-urgent">⏱ ${p.daysLeft}j restants</span>` : `<span class="pl-stat">${p.daysLeft}j restants</span>`}
+          <span class="pl-pct">${pct}%</span>
+        </div>
+      </div>
+      <div class="pl-actions">
+        <button class="pl-back-btn" onclick="openProjectModal('${p.id}')">🎬 Soutenir</button>
+        <button class="pl-save-btn">🔔</button>
+      </div>
+    </div>
+  `}).join('');
+}
+
+// ── TIP MODAL ─────────────────────────────────────────────
+function openTipModal(creatorId) {
+  const c = CREATORS.find(x => x.id === creatorId);
+  if (!c) return;
+  currentTarget = c;
+  document.getElementById('mAvatar').textContent = c.emoji;
+  document.getElementById('mName').textContent   = c.name;
+  document.getElementById('mRole').textContent   = c.role;
+  selectedTipAmount = 1000;
+  renderModalAmounts();
+  document.getElementById('mCustom').value   = '';
+  document.getElementById('mMessage').value  = '';
+  updateModalBtn();
+  document.getElementById('tipModal').classList.add('open');
+}
+
+function openProjectModal(projId) {
+  const p = PROJECTS.find(x => x.id === projId);
+  if (!p) return;
+  currentTarget = p;
+  document.getElementById('mAvatar').textContent = p.emoji;
+  document.getElementById('mName').textContent   = p.title;
+  document.getElementById('mRole').textContent   = 'Projet · par ' + p.creator;
+  selectedTipAmount = 5000;
+  renderModalAmounts();
+  document.getElementById('mCustom').value  = '';
+  document.getElementById('mMessage').value = '';
+  updateModalBtn();
+  document.getElementById('tipModal').classList.add('open');
+}
+
+function renderModalAmounts() {
+  const c = document.getElementById('modalAmounts');
+  c.innerHTML = TIP_AMOUNTS.map(a => `
+    <button class="m-amount-btn ${a===selectedTipAmount?'sel':''}" onclick="selectTipAmt(${a},this)">${a.toLocaleString()}</button>
+  `).join('');
+}
+
+function selectTipAmt(a, btn) {
+  selectedTipAmount = a;
+  document.getElementById('mCustom').value = '';
+  document.querySelectorAll('.m-amount-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  updateModalBtn();
+}
+
+function updateModalBtn() {
+  const custom = parseInt(document.getElementById('mCustom').value);
+  document.getElementById('mBtnAmt').textContent = (custom||selectedTipAmount).toLocaleString();
+}
+
+function closeModal() { document.getElementById('tipModal').classList.remove('open'); }
+
+function submitTip() {
+  const custom = parseInt(document.getElementById('mCustom').value);
+  const amt    = custom || selectedTipAmount;
+  const name   = currentTarget?.name || currentTarget?.title || 'Créateur';
+  closeModal();
+  setTimeout(() => {
+    alert(`✅ ${amt.toLocaleString()} FCFA envoyé à ${name} !\n\n✨ CréaBadge « Soutien Actif » débloqué.`);
+  }, 200);
+}
+
+// ── CONTROLS ──────────────────────────────────────────────
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tabCreateurs').className = 'nav-tab' + (tab==='createurs'?' active':'');
+  document.getElementById('tabProjets').className   = 'nav-tab' + (tab==='projets'?' active':'');
+  document.getElementById('creatorsPanel').style.display = tab==='createurs'?'block':'none';
+  document.getElementById('projectsPanel').style.display = tab==='projets'?'block':'none';
+  if (tab==='createurs') renderCreators();
+  else renderProjects();
+}
+
+function setFilter(val, el) {
+  activeFilter = val;
+  document.querySelectorAll('.filter-chips .chip').forEach((c,i) => { if(i<4) c.classList.remove('active'); });
+  el.classList.add('active');
+  filterItems();
+}
+
+function setRoleFilter(val, el) {
+  activeRole = val;
+  const chips = Array.from(document.querySelectorAll('.filter-chips .chip'));
+  chips.slice(4).forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  filterItems();
+}
+
+function filterItems() {
+  if (currentTab==='createurs') renderCreators();
+  else renderProjects();
+}
+
+function sortItems() {
+  if (currentTab==='createurs') renderCreators();
+}
+
+function toggleFollow(id) {
+  if (following.has(id)) following.delete(id);
+  else following.add(id);
+  const btn = document.getElementById('follow-'+id);
+  if (btn) {
+    btn.textContent = following.has(id) ? '✓ Suivi' : '+Suivre';
+    btn.style.color = following.has(id) ? 'var(--gold)' : '';
+    btn.style.borderColor = following.has(id) ? 'rgba(201,168,76,0.4)' : '';
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────
+document.getElementById('tipModal').addEventListener('click', e => { if(e.target===document.getElementById('tipModal')) closeModal(); });
+document.getElementById('mCustom').addEventListener('input', updateModalBtn);
+
+renderCreators();
+</script>
+</body>
+</html>

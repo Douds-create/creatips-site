@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CréaTips — Soutenez les créateurs africains</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir: #0D0D0D;
+  --noir2: #1A1A1A;
+  --noir3: #2A2A2A;
+  --gold: #C9A84C;
+  --gold2: #F5E8C0;
+  --goldd: #9B7A2E;
+  --cine: #C0392B;
+  --white: #FFFFFF;
+  --gray: #9CA3AF;
+  --gray2: #6B7280;
+  --musique: #7C3AED;
+  --arts: #0891B2;
+  --litterature: #059669;
+  --mode: #DB2777;
+  --danse: #D97706;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--noir);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 2.5rem;
+  background: rgba(13,13,13,0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--gold); }
+
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  background: var(--gold);
+  color: var(--noir);
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  padding: 8rem 2.5rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; top: -20%; right: -10%;
+  width: 60vw; height: 60vw; max-width: 800px; max-height: 800px;
+  background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(to bottom, transparent, var(--noir));
+  pointer-events: none;
+}
+
+.hero-phase-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(192,57,43,0.15);
+  border: 1px solid rgba(192,57,43,0.4);
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cine);
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+  animation: fadeSlideUp 0.7s ease both;
+}
+.phase-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cine); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  max-width: 900px;
+  margin-bottom: 1.8rem;
+  animation: fadeSlideUp 0.8s 0.1s ease both;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--gray);
+  max-width: 520px;
+  line-height: 1.65;
+  margin-bottom: 2.8rem;
+  font-weight: 400;
+  animation: fadeSlideUp 0.8s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeSlideUp 0.8s 0.3s ease both;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--noir);
+  padding: 0.9rem 2.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-primary:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.25); }
+
+.btn-secondary {
+  border: 1.5px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  padding: 0.9rem 2.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+.hero-stats {
+  display: flex; gap: 3rem; margin-top: 4rem;
+  animation: fadeSlideUp 0.8s 0.4s ease both;
+}
+.hero-stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.hero-stat-lbl { font-size: 0.82rem; color: var(--gray2); margin-top: 0.2rem; }
+
+@keyframes fadeSlideUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── UNIVERSE STRIP ──────────────────────────────────────── */
+.universe-strip {
+  display: flex; gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  overflow-x: auto;
+}
+.universe-item {
+  flex: 1; min-width: 160px;
+  padding: 1.4rem 1.2rem;
+  display: flex; align-items: center; gap: 0.8rem;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+.universe-item:last-child { border-right: none; }
+.universe-item.active { background: rgba(192,57,43,0.08); }
+.universe-item:hover { background: rgba(255,255,255,0.03); }
+.universe-emoji { font-size: 1.4rem; }
+.universe-name { font-size: 0.88rem; font-weight: 600; }
+.universe-phase {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-top: 0.1rem;
+}
+.universe-live { position: absolute; top: 0.7rem; right: 0.7rem; background: #16A34A; color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 6px; border-radius: 999px; letter-spacing: 0.08em; }
+
+/* ── SECTION HOW IT WORKS ────────────────────────────────── */
+.section { padding: 6rem 2.5rem; max-width: 1200px; margin: 0 auto; }
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.section-sub { font-size: 1.05rem; color: var(--gray); max-width: 520px; line-height: 1.65; }
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  margin-top: 3.5rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.how-card {
+  background: var(--noir2);
+  padding: 2.4rem;
+  transition: background 0.2s;
+}
+.how-card:hover { background: #1F1F1F; }
+.how-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(201,168,76,0.2);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.how-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+.how-title { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
+.how-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.65; }
+
+/* ── CREATORS SHOWCASE ───────────────────────────────────── */
+.creators-section {
+  padding: 6rem 2.5rem;
+  background: var(--noir2);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.creators-inner { max-width: 1200px; margin: 0 auto; }
+
+.creators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.creator-card {
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--noir);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.creator-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+.creator-cover {
+  height: 160px;
+  background: linear-gradient(135deg, #1C0A00, #2A1A10);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+}
+.creator-cover-img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.7);
+}
+.creator-universe-tag {
+  position: absolute; top: 10px; left: 10px;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+}
+.creator-verified {
+  position: absolute; top: 10px; right: 10px;
+  color: var(--gold); font-size: 0.75rem; font-weight: 700;
+  background: rgba(0,0,0,0.6); padding: 3px 8px; border-radius: 999px;
+}
+.creator-body { padding: 1.2rem; }
+.creator-badge {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+.creator-name { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+.creator-role { font-size: 0.82rem; color: var(--gray); margin-bottom: 0.9rem; }
+.creator-stats { display: flex; gap: 1rem; }
+.creator-stat { font-size: 0.78rem; color: var(--gray2); }
+.creator-stat strong { color: var(--gold); font-size: 0.9rem; }
+
+.tip-btn {
+  display: block; width: 100%; margin-top: 1rem;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold);
+  padding: 0.65rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tip-btn:hover { background: rgba(201,168,76,0.2); border-color: var(--gold); }
+
+/* ── PROJECTS ────────────────────────────────────────────── */
+.projects-section { padding: 6rem 2.5rem; max-width: 1200px; margin: 0 auto; }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.project-card {
+  background: var(--noir2);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.project-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+.project-img {
+  height: 180px;
+  background: linear-gradient(135deg, #1C0A00, #2A1A10);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+}
+.project-type {
+  position: absolute; bottom: 10px; left: 10px;
+  font-size: 0.72rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--cine); color: var(--white);
+}
+.urgent-badge {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 0.72rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--cine); color: var(--white);
+}
+.project-body { padding: 1.4rem; }
+.project-title { font-size: 1.15rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+.project-creator { font-size: 0.82rem; color: var(--gold); margin-bottom: 1rem; }
+.progress-bar { height: 5px; background: var(--noir3); border-radius: 999px; overflow: hidden; margin-bottom: 0.6rem; }
+.progress-fill { height: 100%; background: var(--gold); border-radius: 999px; transition: width 1s ease; }
+.project-stats-row { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 0.5rem; }
+.proj-raised { font-size: 1.1rem; font-weight: 700; color: var(--white); }
+.proj-goal { font-size: 0.85rem; color: var(--gray2); }
+.proj-pct { font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-left: auto; }
+.project-footer { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--gray2); }
+.back-btn {
+  display: block; width: 100%; margin-top: 1rem;
+  background: var(--gold);
+  color: var(--noir);
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.back-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* ── SOCIAL PROOF ────────────────────────────────────────── */
+.social-section {
+  padding: 5rem 2.5rem;
+  background: var(--noir2);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.social-inner { max-width: 1200px; margin: 0 auto; }
+.testimonials { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+.testimonial-card {
+  background: var(--noir);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 1.8rem;
+}
+.testimonial-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 1rem; }
+.testimonial-text { font-size: 0.95rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+.author-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--noir3); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.author-name { font-size: 0.9rem; font-weight: 700; color: var(--white); }
+.author-role { font-size: 0.78rem; color: var(--gray2); }
+
+/* ── UNIVERS CTA SECTION ─────────────────────────────────── */
+.univers-section { padding: 6rem 2.5rem; max-width: 1200px; margin: 0 auto; }
+.univers-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 3rem; }
+.univers-card {
+  border-radius: 14px;
+  padding: 1.8rem;
+  border: 1px solid;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.univers-card:hover { transform: translateY(-3px); }
+.univers-card.active { border-width: 2px; }
+.univers-card-emoji { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+.univers-card-label { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+.univers-card-desc { font-size: 0.82rem; color: var(--gray2); line-height: 1.5; margin-bottom: 1rem; }
+.univers-status {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+  padding: 3px 10px; border-radius: 999px; display: inline-block;
+}
+
+/* ── CTA FINAL ───────────────────────────────────────────── */
+.final-cta {
+  padding: 6rem 2.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #1C0A00 0%, var(--noir) 60%);
+  border-top: 1px solid rgba(201,168,76,0.15);
+}
+.final-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 1.2rem;
+}
+.final-cta h2 em { color: var(--gold); font-style: italic; }
+.final-cta p { font-size: 1.05rem; color: var(--gray); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.65; }
+.final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer {
+  background: var(--noir);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 3rem 2.5rem;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; font-weight: 900; color: var(--white);
+}
+.footer-logo span { color: var(--gold); }
+.footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+.footer-links a { color: var(--gray2); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 0.78rem; color: var(--gray2); }
+
+/* ── TIP MODAL ───────────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.75);
+  align-items: flex-end; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-sheet {
+  background: var(--noir2);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  padding: 2rem;
+  width: 100%; max-width: 480px;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.modal-close {
+  float: right; background: none; border: none;
+  color: var(--gray); font-size: 1.5rem; cursor: pointer;
+}
+.modal-creator-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem; clear: both; }
+.modal-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--noir3); display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; border: 2px solid var(--gold);
+}
+.modal-creator-name { font-size: 1.1rem; font-weight: 700; }
+.modal-creator-role { font-size: 0.82rem; color: var(--gold); }
+.tip-amounts-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; }
+.tip-amount-btn {
+  padding: 0.6rem 1rem; border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: var(--noir3); color: var(--gray);
+  font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.15s;
+}
+.tip-amount-btn.selected, .tip-amount-btn:hover {
+  border-color: var(--gold); background: rgba(201,168,76,0.12); color: var(--gold);
+}
+.tip-input {
+  width: 100%; background: var(--noir3); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 0.75rem 1rem; color: var(--white); font-size: 0.95rem;
+  margin-bottom: 0.8rem; outline: none;
+}
+.tip-input:focus { border-color: var(--gold); }
+.tip-submit {
+  width: 100%; background: var(--gold); color: var(--noir);
+  border: none; border-radius: 10px; padding: 0.9rem;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: all 0.2s; margin-top: 1rem;
+}
+.tip-submit:hover { background: var(--gold2); }
+.tip-fee { font-size: 0.78rem; color: var(--gray2); text-align: center; margin-top: 0.5rem; }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.2rem; }
+  .nav-links { display: none; }
+  .hero { padding: 7rem 1.2rem 3rem; }
+  .section, .creators-section, .projects-section, .univers-section, .social-section, .final-cta, .projects-section { padding: 3.5rem 1.2rem; }
+  .how-grid { grid-template-columns: 1fr; }
+  .creators-grid, .projects-grid { grid-template-columns: 1fr; }
+  .univers-cards { grid-template-columns: 1fr 1fr; }
+  .testimonials { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+ <div class="nav-logo">Cré<span>a</span>Tips</div>
+  <div class="nav-links">
+    <a href="#how">Comment ça marche</a>
+    <a href="#creators">Créateurs</a>
+    <a href="#projects">Projets</a>
+    <a href="#univers">Univers</a>
+    <a href="creatips-catalogue.html">Catalogue</a>
+    <a href="#" class="nav-cta">Je rejoins CréaTips</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-phase-badge">
+    <div class="phase-dot"></div>
+    Phase 1 active — Ciné &amp; Audiovisuel
+  </div>
+  <h1>Soutenez les<br><em>créateurs</em><br>qui vous inspirent.</h1>
+  <p class="hero-sub">Tips directs, crowdfunding de projets, QR codes en salle. La première plateforme africaine dédiée à toutes les industries créatives du continent.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn-primary">💛 Envoyer un tip maintenant</a>
+    <a href="#projects" class="btn-secondary">Voir les projets →</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-val">6</div>
+      <div class="hero-stat-lbl">Univers créatifs</div>
+    </div>
+    <div>
+      <div class="hero-stat-val">8%</div>
+      <div class="hero-stat-lbl">Commission seulement</div>
+    </div>
+    <div>
+      <div class="hero-stat-val">100%</div>
+      <div class="hero-stat-lbl">Africain & Mobile First</div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIVERSE STRIP -->
+<div class="universe-strip">
+  <div class="universe-item active" style="border-top:3px solid #C0392B;">
+    <div class="universe-live">LIVE</div>
+    <span class="universe-emoji">🎬</span>
+    <div>
+      <div class="universe-name" style="color:#fff;">Ciné & Audiovisuel</div>
+      <div class="universe-phase" style="color:#C0392B;">PHASE 1</div>
+    </div>
+  </div>
+  <div class="universe-item" style="border-top:3px solid #7C3AED;">
+    <span class="universe-emoji">🎵</span>
+    <div>
+      <div class="universe-name" style="color:#9CA3AF;">Musique</div>
+      <div class="universe-phase" style="color:#7C3AED;">PHASE 2 — 2026</div>
+    </div>
+  </div>
+  <div class="universe-item" style="border-top:3px solid #0891B2;">
+    <span class="universe-emoji">🎨</span>
+    <div>
+      <div class="universe-name" style="color:#9CA3AF;">Arts Visuels</div>
+      <div class="universe-phase" style="color:#0891B2;">PHASE 3 — 2027</div>
+    </div>
+  </div>
+  <div class="universe-item" style="border-top:3px solid #059669;">
+    <span class="universe-emoji">📖</span>
+    <div>
+      <div class="universe-name" style="color:#9CA3AF;">Littérature</div>
+      <div class="universe-phase" style="color:#059669;">PHASE 3 — 2027</div>
+    </div>
+  </div>
+  <div class="universe-item" style="border-top:3px solid #DB2777;">
+    <span class="universe-emoji">✂️</span>
+    <div>
+      <div class="universe-name" style="color:#9CA3AF;">Mode & Design</div>
+      <div class="universe-phase" style="color:#DB2777;">PHASE 4 — 2027</div>
+    </div>
+  </div>
+  <div class="universe-item" style="border-top:3px solid #D97706;">
+    <span class="universe-emoji">💃</span>
+    <div>
+      <div class="universe-name" style="color:#9CA3AF;">Danse & Scène</div>
+      <div class="universe-phase" style="color:#D97706;">PHASE 4 — 2028</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-label">Comment ça marche</div>
+  <h2 class="section-title">Simple comme envoyer un SMS.</h2>
+  <p class="section-sub">Trois façons de soutenir un créateur africain — en 10 secondes.</p>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <span class="how-icon">💸</span>
+      <div class="how-title">Tips directs</div>
+      <div class="how-desc">Choisissez un créateur, sélectionnez un montant (à partir de 500 FCFA), payez en Mobile Money. 92% va directement au créateur. Immédiat.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <span class="how-icon">🎬</span>
+      <div class="how-title">Crowdfunding de projets</div>
+      <div class="how-desc">Soutenez un film, une série, un album avant sa sortie. Choisissez votre contrepartie — du crédit au générique à l'invitation sur le plateau.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <span class="how-icon">⚡</span>
+      <div class="how-title">QR Code Tip Flash</div>
+      <div class="how-desc">Scannez le QR code affiché dans la salle ou sur l'affiche. Envoyez un tip en 10 secondes, en temps réel, pendant ou après la séance.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATORS -->
+<section class="creators-section" id="creators">
+  <div class="creators-inner">
+    <div class="section-label">Créateurs en vedette</div>
+    <h2 class="section-title">Des talents qui méritent<br>votre soutien.</h2>
+    <div class="creators-grid">
+      <div class="creator-card">
+        <div class="creator-cover" style="background:linear-gradient(135deg,#3D0A00,#1A1A1A);">
+          🎭
+          <div class="creator-universe-tag" style="background:#C0392B;">🎬</div>
+          <div class="creator-verified">✓ Vérifié</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-badge" style="color:#C9A84C;">⭐ CréaStar</div>
+          <div class="creator-name">Adama Coulibaly</div>
+          <div class="creator-role">Acteur · Côte d'Ivoire · Ciné & Théâtre</div>
+          <div class="creator-stats">
+            <div class="creator-stat"><strong>4,85M</strong> FCFA reçus</div>
+            <div class="creator-stat"><strong>634</strong> fans</div>
+            <div class="creator-stat"><strong>892</strong> tips</div>
+          </div>
+          <button class="tip-btn" onclick="openTipModal('Adama Coulibaly','Acteur')">💛 Envoyer un tip</button>
+        </div>
+      </div>
+      <div class="creator-card">
+        <div class="creator-cover" style="background:linear-gradient(135deg,#0A1C3D,#1A1A1A);">
+          🎬
+          <div class="creator-universe-tag" style="background:#C0392B;">🎬</div>
+          <div class="creator-verified">✓ Vérifié</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-badge" style="color:#C9A84C;">⭐ CréaStar</div>
+          <div class="creator-name">Mariama Diallo</div>
+          <div class="creator-role">Réalisatrice · Sénégal · Documentaire</div>
+          <div class="creator-stats">
+            <div class="creator-stat"><strong>3,2M</strong> FCFA reçus</div>
+            <div class="creator-stat"><strong>421</strong> fans</div>
+            <div class="creator-stat"><strong>567</strong> tips</div>
+          </div>
+          <button class="tip-btn" onclick="openTipModal('Mariama Diallo','Réalisatrice')">💛 Envoyer un tip</button>
+        </div>
+      </div>
+      <div class="creator-card">
+        <div class="creator-cover" style="background:linear-gradient(135deg,#0A2B1A,#1A1A1A);">
+          ✍️
+          <div class="creator-universe-tag" style="background:#C0392B;">🎬</div>
+          <div class="creator-verified">✓ Vérifié</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-badge" style="color:#9CA3AF;">✨ CréaTalent</div>
+          <div class="creator-name">Awa Traoré</div>
+          <div class="creator-role">Scénariste · Mali · Série TV</div>
+          <div class="creator-stats">
+            <div class="creator-stat"><strong>2,1M</strong> FCFA reçus</div>
+            <div class="creator-stat"><strong>338</strong> fans</div>
+            <div class="creator-stat"><strong>445</strong> tips</div>
+          </div>
+          <button class="tip-btn" onclick="openTipModal('Awa Traoré','Scénariste')">💛 Envoyer un tip</button>
+        </div>
+      </div>
+      <div class="creator-card">
+        <div class="creator-cover" style="background:linear-gradient(135deg,#1A0A3D,#1A1A1A);">
+          📷
+          <div class="creator-universe-tag" style="background:#C0392B;">🎬</div>
+          <div class="creator-verified">✓ Vérifié</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-badge" style="color:#9CA3AF;">✨ CréaTalent</div>
+          <div class="creator-name">Kofi Mensah</div>
+          <div class="creator-role">Directeur Photo · Ghana · Netflix Afrique</div>
+          <div class="creator-stats">
+            <div class="creator-stat"><strong>1,85M</strong> FCFA reçus</div>
+            <div class="creator-stat"><strong>245</strong> fans</div>
+            <div class="creator-stat"><strong>312</strong> tips</div>
+          </div>
+          <button class="tip-btn" onclick="openTipModal('Kofi Mensah','Directeur Photo')">💛 Envoyer un tip</button>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="#" class="btn-secondary">Voir tous les créateurs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="section-label">Projets à financer</div>
+  <h2 class="section-title">Devenez co-producteur.</h2>
+  <p class="section-sub">Soutenez un film africain avant sa sortie. En échange : crédits, avant-premières, accès exclusifs.</p>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-img" style="background:linear-gradient(135deg,#3D1A00,#1A0A00);">
+        🎬
+        <div class="project-type">Long métrage</div>
+        <div class="urgent-badge">⏱ 18j restants</div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Abidjan Nuit — Suite</div>
+        <div class="project-creator">par Adama Coulibaly</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:74%"></div></div>
+        <div class="project-stats-row">
+          <span class="proj-raised">18,5M FCFA</span>
+          <span class="proj-goal"> / 25M</span>
+          <span class="proj-pct">74%</span>
+        </div>
+        <div class="project-footer">
+          <span>👥 234 backers</span>
+          <span>18 jours restants</span>
+        </div>
+        <button class="back-btn" onclick="openTipModal('Abidjan Nuit','Projet')">🎬 Soutenir ce projet</button>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-img" style="background:linear-gradient(135deg,#1A003D,#0D0D1A);">
+        🎞️
+        <div class="project-type">Série TV</div>
+        <div class="urgent-badge">⏱ 8j restants</div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Bamako Heights — Saison 3</div>
+        <div class="project-creator">par Awa Traoré</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+        <div class="project-stats-row">
+          <span class="proj-raised">31M FCFA</span>
+          <span class="proj-goal"> / 40M</span>
+          <span class="proj-pct">78%</span>
+        </div>
+        <div class="project-footer">
+          <span>👥 412 backers</span>
+          <span>8 jours restants</span>
+        </div>
+        <button class="back-btn" onclick="openTipModal('Bamako Heights S3','Projet')">🎬 Soutenir ce projet</button>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-img" style="background:linear-gradient(135deg,#002A3D,#0D1A1A);">
+        🎥
+        <div class="project-type">Documentaire</div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Dakar Underground</div>
+        <div class="project-creator">par Mariama Diallo</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:61%"></div></div>
+        <div class="project-stats-row">
+          <span class="proj-raised">9,2M FCFA</span>
+          <span class="proj-goal"> / 15M</span>
+          <span class="proj-pct">61%</span>
+        </div>
+        <div class="project-footer">
+          <span>👥 156 backers</span>
+          <span>32 jours restants</span>
+        </div>
+        <button class="back-btn" onclick="openTipModal('Dakar Underground','Projet')">🎬 Soutenir ce projet</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="social-section">
+  <div class="social-inner">
+    <div class="section-label">Ce qu'ils en disent</div>
+    <h2 class="section-title">La communauté CréaTips.</h2>
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">«Pour la première fois, j'ai reçu de l'argent directement de mes fans après une projection. 47 000 FCFA en une soirée. C'est révolutionnaire.»</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">🎭</div>
+          <div>
+            <div class="author-name">Kofi M.</div>
+            <div class="author-role">Directeur Photo · Ghana</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">«J'ai financé 40% de mon court-métrage grâce à CréaTips. La communauté s'est mobilisée en 3 semaines. Impossible via les circuits classiques.»</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">🎬</div>
+          <div>
+            <div class="author-name">Fatoumata D.</div>
+            <div class="author-role">Réalisatrice · Sénégal</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">«Je suis fan d'Adama Coulibaly depuis 5 ans. Pouvoir lui envoyer un tip directement après avoir vu son film — ça change tout. Merci CréaTips.»</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">👤</div>
+          <div>
+            <div class="author-name">Jean-Paul A.</div>
+            <div class="author-role">Fan · Abidjan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIVERS -->
+<section class="univers-section" id="univers">
+  <div class="section-label">Les univers CréaTips</div>
+  <h2 class="section-title">6 industries. 1 plateforme.<br>Toute la créativité africaine.</h2>
+  <p class="section-sub">CréaTips s'ouvre progressivement à chaque industrie créative du continent. Rejoignez la liste d'attente pour être notifié en premier.</p>
+  <div class="univers-cards">
+    <div class="univers-card active" style="border-color:#C0392B;background:rgba(192,57,43,0.08);">
+      <span class="univers-card-emoji">🎬</span>
+      <div class="univers-card-label">Ciné & Audiovisuel</div>
+      <div class="univers-card-desc">Acteurs, réalisateurs, scénaristes, directeurs photo, monteurs, producteurs...</div>
+      <span class="univers-status" style="background:#16A34A;color:#fff;">🟢 DISPONIBLE</span>
+    </div>
+    <div class="univers-card" style="border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.04);">
+      <span class="univers-card-emoji">🎵</span>
+      <div class="univers-card-label" style="color:#9CA3AF;">Musique</div>
+      <div class="univers-card-desc">Artistes, producteurs, beatmakers, DJs, choristes, compositeurs...</div>
+      <span class="univers-status" style="background:rgba(124,58,237,0.2);color:#7C3AED;">Phase 2 — 2026</span>
+    </div>
+    <div class="univers-card" style="border-color:rgba(8,145,178,0.3);background:rgba(8,145,178,0.04);">
+      <span class="univers-card-emoji">🎨</span>
+      <div class="univers-card-label" style="color:#9CA3AF;">Arts Visuels</div>
+      <div class="univers-card-desc">Peintres, sculpteurs, photographes, illustrateurs, graphistes...</div>
+      <span class="univers-status" style="background:rgba(8,145,178,0.2);color:#0891B2;">Phase 3 — 2027</span>
+    </div>
+    <div class="univers-card" style="border-color:rgba(5,150,105,0.3);background:rgba(5,150,105,0.04);">
+      <span class="univers-card-emoji">📖</span>
+      <div class="univers-card-label" style="color:#9CA3AF;">Littérature</div>
+      <div class="univers-card-desc">Écrivains, poètes, auteurs, éditeurs indépendants, conteurs...</div>
+      <span class="univers-status" style="background:rgba(5,150,105,0.2);color:#059669;">Phase 3 — 2027</span>
+    </div>
+    <div class="univers-card" style="border-color:rgba(219,39,119,0.3);background:rgba(219,39,119,0.04);">
+      <span class="univers-card-emoji">✂️</span>
+      <div class="univers-card-label" style="color:#9CA3AF;">Mode & Design</div>
+      <div class="univers-card-desc">Créateurs de mode, stylistes, designers graphiques, bijoutiers...</div>
+      <span class="univers-status" style="background:rgba(219,39,119,0.2);color:#DB2777;">Phase 4 — 2027</span>
+    </div>
+    <div class="univers-card" style="border-color:rgba(217,119,6,0.3);background:rgba(217,119,6,0.04);">
+      <span class="univers-card-emoji">💃</span>
+      <div class="univers-card-label" style="color:#9CA3AF;">Danse & Scène</div>
+      <div class="univers-card-desc">Danseurs, chorégraphes, comédiens, artistes de scène...</div>
+      <span class="univers-status" style="background:rgba(217,119,6,0.2);color:#D97706;">Phase 4 — 2028</span>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem;">
+    <a href="#" class="btn-secondary">Rejoindre la liste d'attente →</a>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Soutenez les<br><em>créateurs africains</em><br>qui vous inspirent.</h2>
+  <p>Tips en Mobile Money · Crowdfunding de projets · QR Code Tip Flash en salle. Disponible maintenant sur iOS et Android.</p>
+  <div class="final-actions">
+    <a href="#" class="btn-primary" style="font-size:1.05rem;padding:1rem 2.5rem;">Télécharger CréaTips</a>
+    <a href="#" class="btn-secondary" style="font-size:1.05rem;padding:1rem 2.5rem;">Rejoindre comme créateur</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Cré<span>a</span>Tips</div>
+    <div class="footer-links">
+      <a href="#">À propos</a>
+      <a href="#">Créateurs</a>
+      <a href="#">Projets</a>
+      <a href="#">Univers</a>
+      <a href="#">Investisseurs</a>
+      <a href="#">Contact</a>
+      <a href="#">CGU</a>
+    </div>
+    <div class="footer-copy">© 2026 CréaTips · Abidjan, Côte d'Ivoire</div>
+  </div>
+</footer>
+
+<!-- TIP MODAL -->
+<div class="modal-overlay" id="tipModal">
+  <div class="modal-sheet">
+    <button class="modal-close" onclick="closeTipModal()">✕</button>
+    <div class="modal-creator-row">
+      <div class="modal-avatar" id="modalEmoji">🎭</div>
+      <div>
+        <div class="modal-creator-name" id="modalName">Créateur</div>
+        <div class="modal-creator-role" id="modalRole">Rôle</div>
+      </div>
+    </div>
+    <div style="font-size:0.85rem;color:#9CA3AF;font-weight:600;margin-bottom:0.8rem;">Choisir le montant (FCFA)</div>
+    <div class="tip-amounts-grid" id="tipAmounts"></div>
+    <input type="number" class="tip-input" placeholder="Montant libre..." id="customAmount">
+    <input type="text" class="tip-input" placeholder="Message (optionnel)" id="tipMessage">
+    <button class="tip-submit" onclick="sendTip()">Envoyer <span id="tipBtnAmount">1 000</span> FCFA 💛</button>
+    <div class="tip-fee">CréaTips retient 8% · Le reste va directement au créateur</div>
+  </div>
+</div>
+
+<script>
+const TIP_AMOUNTS = [500,1000,2500,5000,10000,25000];
+let selectedAmount = 1000;
+let currentCreator = '';
+
+function initTipAmounts() {
+  const container = document.getElementById('tipAmounts');
+  container.innerHTML = '';
+  TIP_AMOUNTS.forEach(a => {
+    const btn = document.createElement('button');
+    btn.className = 'tip-amount-btn' + (a === selectedAmount ? ' selected' : '');
+    btn.textContent = a.toLocaleString();
+    btn.onclick = () => {
+      selectedAmount = a;
+      document.getElementById('customAmount').value = '';
+      document.querySelectorAll('.tip-amount-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateTipBtn();
+    };
+    container.appendChild(btn);
+  });
+}
+
+function updateTipBtn() {
+  const custom = parseInt(document.getElementById('customAmount').value);
+  const amt = custom || selectedAmount;
+  document.getElementById('tipBtnAmount').textContent = amt.toLocaleString();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initTipAmounts();
+  document.getElementById('customAmount').addEventListener('input', updateTipBtn);
+});
+
+function openTipModal(name, role) {
+  currentCreator = name;
+  const emojis = {'Adama Coulibaly':'🎭','Mariama Diallo':'🎬','Awa Traoré':'✍️','Kofi Mensah':'📷'};
+  document.getElementById('modalEmoji').textContent = emojis[name] || '🎬';
+  document.getElementById('modalName').textContent = name;
+  document.getElementById('modalRole').textContent = role;
+  initTipAmounts();
+  document.getElementById('tipModal').classList.add('open');
+}
+
+function closeTipModal() {
+  document.getElementById('tipModal').classList.remove('open');
+}
+
+function sendTip() {
+  const custom = parseInt(document.getElementById('customAmount').value);
+  const amt = custom || selectedAmount;
+  closeTipModal();
+  setTimeout(() => {
+    alert(`✅ ${amt.toLocaleString()} FCFA envoyé à ${currentCreator} !\n\n✨ CréaBadge « Soutien Actif » débloqué.`);
+  }, 200);
+}
+
+document.getElementById('tipModal').addEventListener('click', function(e) {
+  if (e.target === this) closeTipModal();
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.style.opacity = '1'; });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.creator-card, .project-card, .testimonial-card, .univers-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transition = 'opacity 0.6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
